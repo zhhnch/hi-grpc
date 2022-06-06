@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  hi-grpc:
+    image: hyperf/hyperf:8.1-alpine-v3.15-swoole
+    container_name: hi-grpc
+    volumes:
+      - $PWD:/opt/www
+    working_dir: /opt/www
+    ports:
+      - "9501:9501"
+      - "9503:9503"
+    networks:
+      - dev-network
+    cpu_count: 2
+    tty: true
+    entrypoint:
+      - php
+      - bin/hyperf.php
+      - start
+
+networks:
+  dev-network:
+    external: true

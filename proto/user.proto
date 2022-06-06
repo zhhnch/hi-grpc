@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package grpc;
+
+service user {
+
+  rpc getUserList (UserListRequest) returns (UserListReply) {
+  }
+
+  rpc getUser (UserRequest) returns (UserReply) {
+  }
+
+}
+
+message UserListRequest {
+  string username = 1;
+  string name = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+
+message UserList {
+  int32 count = 1;
+  int32 size = 2;
+  repeated User list = 3;
+}
+
+message UserRequest {
+  int32 id = 1;
+}
+
+message User {
+  int32 id = 1;
+  string username = 2;
+  string name = 3;
+}
+
+message UserReply {
+  Reply result = 1;
+  User data = 2;
+}
+
+message UserListReply {
+  Reply result = 1;
+  UserList data = 2;
+}
+
+message Reply {
+  string code = 1;
+  string message = 2;
+}
+
