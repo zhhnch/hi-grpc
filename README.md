@@ -13,6 +13,12 @@ apk add protobuf
 apt install -y protobuf-compiler
 ```
 
+## protobuf-compiler-grpc
+
+```shell
+sudo apt install -y protobuf-compiler-grpc
+```
+
 ### 验证 protoc 是否安装成功
 
 ```shell
@@ -27,6 +33,14 @@ protoc --php_out=../grpc/ user.proto
 
 ```shell
 protoc --proto_path=proto/ --php_out=grpc/ proto/*.proto
+```
+
+```shell
+protoc --proto_path=proto/ \
+  --php_out=grpc/ \
+  --grpc_out=grpc/ \
+  --plugin=protoc-gen-grpc=/usr/bin/grpc_php_plugin \
+  proto/*.proto
 ```
 
 ## composer

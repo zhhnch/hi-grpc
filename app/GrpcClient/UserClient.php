@@ -11,29 +11,41 @@ declare(strict_types=1);
  */
 namespace App\GrpcClient;
 
-use Grpc\UserListReply;
-use Grpc\UserListRequest;
-use Grpc\UserReply;
-use Grpc\UserRequest;
+use HiGrpc\UserListRequest;
+use HiGrpc\UserRequest;
 use Hyperf\GrpcClient\BaseClient;
 
 class UserClient extends BaseClient
 {
-    public function getUser(UserRequest $request)
+    /**
+     * @param \HiGrpc\UserListRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     */
+    public function getUserList(UserListRequest $argument, $metadata = [], $options = [])
     {
         return $this->_simpleRequest(
-            '/grpc.user/getUser',
-            $request,
-            [UserReply::class, 'decode']
+            '/HiGrpc.UserService/getUserList',
+            $argument,
+            ['\HiGrpc\UserListReply', 'decode'],
+            $metadata,
+            $options
         );
     }
 
-    public function getUserList(UserListRequest $request)
+    /**
+     * @param \HiGrpc\UserRequest $argument input argument
+     * @param array $metadata metadata
+     * @param array $options call options
+     */
+    public function getUser(UserRequest $argument, $metadata = [], $options = [])
     {
         return $this->_simpleRequest(
-            '/grpc.user/getUserList',
-            $request,
-            [UserListReply::class, 'decode']
+            '/HiGrpc.UserService/getUser',
+            $argument,
+            ['\HiGrpc\UserReply', 'decode'],
+            $metadata,
+            $options
         );
     }
 }

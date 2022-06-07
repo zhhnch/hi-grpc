@@ -12,11 +12,12 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\GrpcClient\UserClient;
-use Grpc\User;
-use Grpc\UserListReply;
-use Grpc\UserListRequest;
-use Grpc\UserReply;
-use Grpc\UserRequest;
+use HiGrpc\User;
+use HiGrpc\UserListReply;
+use HiGrpc\UserListRequest;
+use HiGrpc\UserReply;
+use HiGrpc\UserRequest;
+use HiGrpc\UserServiceClient;
 use Hyperf\HttpServer\Annotation\AutoController;
 
 /**
@@ -40,21 +41,19 @@ class IndexController extends AbstractController
         $client = new UserClient('hi-grpc:9503', [
             'credentials' => null,
         ]);
-        $request = new UserRequest();
-        $request->setId(10086);
+//        $client = new UserServiceClient('hi-grpc:9503', [
+//
+//        ]);
+        $request = new UserRequest([
+            'id' => 10086,
+        ]);
         /**
          * @var UserReply $message
          */
         [$message, $status] = $client->getUser($request);
-        $userMsg = $message->getData();
-        $result = $message->getResult();
-        $user = [
-            'id' => $userMsg->getId(),
-            'name' => $userMsg->getName(),
-            'username' => $userMsg->getUsername(),
-        ];
-        $result = $result->serializeToJsonString();
-        return compact('user', 'status', 'result');
+        $result = json_decode($message->getResult()->serializeToJsonString(), true);
+        $data = json_decode($message->getData()->serializeToJsonString(), true);
+        return compact('data', 'status', 'result');
     }
 
     public function userList()
@@ -62,31 +61,18 @@ class IndexController extends AbstractController
         $client = new UserClient('192.168.31.9:9503', [
             'credentials' => null,
         ]);
-        $request = new UserListRequest();
-        $request->setUsername('');
-        $request->setName('');
-        $request->setPage(1);
-        $request->setSize(10);
+        $request = new UserListRequest([
+            'username' => '',
+            'name' => '',
+            'page' => 1,
+            'size' => 10,
+        ]);
         /**
          * @var UserListReply $message
          */
         [$message, $status] = $client->getUserList($request);
-        $msg = $message->getData();
-        $result = $message->getResult();
-        $userList = $msg->getList();
-        $list = [];
-
-        /**
-         * @var User $user
-         */
-        foreach ($userList as $user) {
-            $list[] = [
-                'id' => $user->getId(),
-                'name' => $user->getName(),
-                'username' => $user->getUsername(),
-            ];
-        }
-        $code = $result->getCode();
-        return compact('list', 'status', 'code');
+        $result = json_decode($message->getResult()->serializeToJsonString(), true);
+        $data = json_decode($message->getData()->serializeToJsonString(), true);
+        return compact('data', 'status', 'result');
     }
 }

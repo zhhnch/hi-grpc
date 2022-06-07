@@ -11,69 +11,70 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use Grpc\Result;
-use Grpc\User;
-use Grpc\UserList;
-use Grpc\UserListReply;
-use Grpc\UserListRequest;
-use Grpc\UserReply;
-use Grpc\UserRequest;
+use HiGrpc\Result;
+use HiGrpc\User;
+use HiGrpc\UserList;
+use HiGrpc\UserListReply;
+use HiGrpc\UserListRequest;
+use HiGrpc\UserReply;
+use HiGrpc\UserRequest;
 
 class UserController
 {
     public function getUser(UserRequest $request)
     {
         $userId = $request->getId();
-        $user = new User();
-        $user->setId($userId);
-        $user->setName('Administrator');
-        $user->setUsername('admin');
+        $user = new User([
+            'id' => $userId,
+            'username' => 'admin',
+            'name' => 'Administrator',
+        ]);
 
         $result = new Result([
             'success' => true,
             'code' => '0000',
             'message' => 'success',
         ]);
-//        $result->setSuccess(true);
-//        $result->setCode('0000');
-//        $result->setMessage('success');
 
-        $return = new UserReply();
-        $return->setData($user);
-        $return->setResult($result);
-        $result->setSuccess(true);
-        return $return;
+        return new UserReply([
+            'data' => $user,
+            'result' => $result,
+        ]);
     }
 
     public function getUserList(UserListRequest $request)
     {
-        $list = new UserList();
+        $dataList = array_map(
+            fn ($u) => new User($u),
+            [
+                [
+                    'id' => 1,
+                    'name' => 'Administrator',
+                    'username' => 'admin',
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Super Admin',
+                    'username' => 'root',
+                ],
+            ]
+        );
 
-        $user = new User();
-        $user->setId(1);
-        $user->setName('Administrator');
-        $user->setUsername('admin');
-
-        $user2 = new User();
-        $user2->setId(2);
-        $user2->setName('SuperAdmin');
-        $user2->setUsername('root');
-
-        $list->setList([
-            $user,
-            $user2,
+        $list = new UserList([
+            'size' => 100,
+            'count' => 10086,
+            'list' => $dataList,
         ]);
-        $list->setSize(10);
-        $list->setCount(100);
 
-        $result = new Result();
-        $result->setCode('0000');
-        $result->setMessage('success');
-        $result->setSuccess(true);
+        $result = new Result([
+            'success' => true,
+            'code' => '0000',
+            'message' => 'success',
+        ]);
 
-        $reply = new UserListReply();
-        $reply->setData($list);
-        $reply->setResult($result);
-        return $reply;
+        return new UserListReply([
+            'data' => $list,
+            'result' => $result,
+        ]);
     }
 }
