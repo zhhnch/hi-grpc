@@ -20,7 +20,7 @@ use Grpc\UserRequest;
 use Hyperf\HttpServer\Annotation\AutoController;
 
 /**
- * @AutoController()
+ * @AutoController
  */
 class IndexController extends AbstractController
 {
@@ -43,43 +43,43 @@ class IndexController extends AbstractController
         $request = new UserRequest();
         $request->setId(10086);
         /**
-         * @type UserReply $message
+         * @var UserReply $message
          */
-        list($message, $status) = $client->getUser($request);
+        [$message, $status] = $client->getUser($request);
         $userMsg = $message->getData();
+        $result = $message->getResult();
         $user = [
             'id' => $userMsg->getId(),
             'name' => $userMsg->getName(),
             'username' => $userMsg->getUsername(),
         ];
-        return compact('user', 'status');
+        $result = $result->serializeToJsonString();
+        return compact('user', 'status', 'result');
     }
 
     public function userList()
     {
-        $client = new UserClient('hi-grpc:9503', [
+        $client = new UserClient('192.168.31.9:9503', [
             'credentials' => null,
         ]);
         $request = new UserListRequest();
-        $request->setUsername("");
-        $request->setName("");
+        $request->setUsername('');
+        $request->setName('');
         $request->setPage(1);
         $request->setSize(10);
         /**
-         * @type UserListReply $message
+         * @var UserListReply $message
          */
-        list($message, $status) = $client->getUserList($request);
+        [$message, $status] = $client->getUserList($request);
         $msg = $message->getData();
         $result = $message->getResult();
         $userList = $msg->getList();
-//        return ['result' => true];
-//        $iterator = $userList->getIterator();
         $list = [];
 
         /**
-         * @type User $user
+         * @var User $user
          */
-        foreach($userList as $user){
+        foreach ($userList as $user) {
             $list[] = [
                 'id' => $user->getId(),
                 'name' => $user->getName(),

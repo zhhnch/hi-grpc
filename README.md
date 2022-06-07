@@ -25,6 +25,10 @@ protoc --version
 protoc --php_out=../grpc/ user.proto
 ```
 
+```shell
+protoc --proto_path=proto/ --php_out=grpc/ proto/*.proto
+```
+
 ## composer
 
 ```shell

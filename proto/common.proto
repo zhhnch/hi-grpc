@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package grpc;
+
+message Result {
+  bool success = 1;
+  string code = 2;
+  string message = 3;
+}
+
+message Trace {
+  string trace_no = 1;
+}
+

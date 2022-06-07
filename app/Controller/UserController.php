@@ -1,18 +1,23 @@
 <?php
 
 declare(strict_types=1);
-
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 namespace App\Controller;
 
-use Grpc\Reply;
+use Grpc\Result;
 use Grpc\User;
 use Grpc\UserList;
 use Grpc\UserListReply;
 use Grpc\UserListRequest;
 use Grpc\UserReply;
 use Grpc\UserRequest;
-use Hyperf\HttpServer\Contract\RequestInterface;
-use Hyperf\HttpServer\Contract\ResponseInterface;
 
 class UserController
 {
@@ -21,16 +26,22 @@ class UserController
         $userId = $request->getId();
         $user = new User();
         $user->setId($userId);
-        $user->setName("Administrator");
-        $user->setUsername("admin");
+        $user->setName('Administrator');
+        $user->setUsername('admin');
 
-        $result = new Reply();
-        $result->setCode("0000");
-        $result->setMessage("success");
+        $result = new Result([
+            'success' => true,
+            'code' => '0000',
+            'message' => 'success',
+        ]);
+//        $result->setSuccess(true);
+//        $result->setCode('0000');
+//        $result->setMessage('success');
 
         $return = new UserReply();
         $return->setData($user);
         $return->setResult($result);
+        $result->setSuccess(true);
         return $return;
     }
 
@@ -40,24 +51,25 @@ class UserController
 
         $user = new User();
         $user->setId(1);
-        $user->setName("Administrator");
-        $user->setUsername("admin");
+        $user->setName('Administrator');
+        $user->setUsername('admin');
 
         $user2 = new User();
         $user2->setId(2);
-        $user2->setName("SuperAdmin");
-        $user2->setUsername("root");
+        $user2->setName('SuperAdmin');
+        $user2->setUsername('root');
 
         $list->setList([
             $user,
-            $user2
+            $user2,
         ]);
         $list->setSize(10);
         $list->setCount(100);
 
-        $result = new Reply();
-        $result->setCode("0000");
-        $result->setMessage("success");
+        $result = new Result();
+        $result->setCode('0000');
+        $result->setMessage('success');
+        $result->setSuccess(true);
 
         $reply = new UserListReply();
         $reply->setData($list);

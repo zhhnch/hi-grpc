@@ -2,13 +2,13 @@ syntax = "proto3";
 
 package grpc;
 
+import "common.proto";
+
 service user {
 
-  rpc getUserList (UserListRequest) returns (UserListReply) {
-  }
+  rpc getUserList (UserListRequest) returns (UserListReply) {}
 
-  rpc getUser (UserRequest) returns (UserReply) {
-  }
+  rpc getUser (UserRequest) returns (UserReply) {}
 
 }
 
@@ -36,17 +36,13 @@ message User {
 }
 
 message UserReply {
-  Reply result = 1;
+  Result result = 1;
   User data = 2;
 }
 
 message UserListReply {
-  Reply result = 1;
+  Result result = 1;
   UserList data = 2;
 }
 
-message Reply {
-  string code = 1;
-  string message = 2;
-}
 
