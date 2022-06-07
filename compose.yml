@@ -10,6 +10,7 @@ services:
     ports:
       - "9501:9501"
       - "9503:9503"
+      - "9505:9505"
     networks:
       - dev-network
     cpu_count: 2

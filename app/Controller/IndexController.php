@@ -12,13 +12,15 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\GrpcClient\UserClient;
-use HiGrpc\User;
 use HiGrpc\UserListReply;
 use HiGrpc\UserListRequest;
 use HiGrpc\UserReply;
 use HiGrpc\UserRequest;
 use HiGrpc\UserServiceClient;
+use Hyperf\Consul\Agent;
+use Hyperf\Guzzle\ClientFactory;
 use Hyperf\HttpServer\Annotation\AutoController;
+use Hyperf\Utils\ApplicationContext;
 
 /**
  * @AutoController
@@ -74,5 +76,66 @@ class IndexController extends AbstractController
         $result = json_decode($message->getResult()->serializeToJsonString(), true);
         $data = json_decode($message->getData()->serializeToJsonString(), true);
         return compact('data', 'status', 'result');
+    }
+
+    public function services()
+    {
+        $container = ApplicationContext::getContainer();
+        $clientFactory = $container->get(ClientFactory::class);
+        $agent = new Agent(function () use ($clientFactory) {
+            return $clientFactory->create([
+                'base_uri' => config('consul.uri'),
+                'headers' => [
+                    'Accept' => 'application/json',
+                ],
+            ]);
+        });
+        $services = $agent->services();
+        return [
+            'services' => $services->json(),
+        ];
+    }
+
+    public function register()
+    {
+        $container = ApplicationContext::getContainer();
+        $clientFactory = $container->get(ClientFactory::class);
+        $agent = new Agent(function () use ($clientFactory) {
+            return $clientFactory->create([
+                'base_uri' => config('consul.uri'),
+                'headers' => [
+                    'Accept' => 'application/json',
+                ],
+            ]);
+        });
+        $res = $agent->registerService([
+            'name' => 'HiGrpc',
+            'id' => 'HiGrpc',
+            'port' => 9503,
+            'tags' => ['HiGrpc'],
+        ]);
+        return [
+            'res' => $res->getBody()->getContents(),
+            'status' => $res->getStatusCode(),
+        ];
+    }
+
+    public function down()
+    {
+        $container = ApplicationContext::getContainer();
+        $clientFactory = $container->get(ClientFactory::class);
+        $agent = new Agent(function () use ($clientFactory) {
+            return $clientFactory->create([
+                'base_uri' => config('consul.uri'),
+                'headers' => [
+                    'Accept' => 'application/json',
+                ],
+            ]);
+        });
+        $res = $agent->deregisterService('HiGrpc');
+        return [
+            'res' => $res->getBody()->getContents(),
+            'status' => $res->getStatusCode(),
+        ];
     }
 }

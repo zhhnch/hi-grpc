@@ -50,3 +50,8 @@ composer require google/protobuf
 ```
 
 
+## JsonRpc
+
+```shell
+curl -d '{"jsonrpc": "2.0", "method": "/app/detail", "params": ["382210404157267968"], "id": 1}' http://localhost:9505
+```
