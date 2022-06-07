@@ -25,6 +25,10 @@ class Result extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string message = 3;</code>
      */
     private $message = '';
+    /**
+     * Generated from protobuf field <code>string trace_no = 4;</code>
+     */
+    private $trace_no = '';
 
     /**
      * Constructor.
@@ -35,6 +39,7 @@ class Result extends \Google\Protobuf\Internal\Message
      *     @type bool $success
      *     @type string $code
      *     @type string $message
+     *     @type string $trace_no
      * }
      */
     public function __construct($data = NULL) {
@@ -104,6 +109,28 @@ class Result extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->message = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>string trace_no = 4;</code>
+     * @return string
+     */
+    public function getTraceNo()
+    {
+        return $this->trace_no;
+    }
+
+    /**
+     * Generated from protobuf field <code>string trace_no = 4;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setTraceNo($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->trace_no = $var;
 
         return $this;
     }
