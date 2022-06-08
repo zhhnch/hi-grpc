@@ -122,6 +122,7 @@ class IndexController extends AbstractController
 
     public function down()
     {
+        $id = $this->request->input('id', 'HiGrpc');
         $container = ApplicationContext::getContainer();
         $clientFactory = $container->get(ClientFactory::class);
         $agent = new Agent(function () use ($clientFactory) {
@@ -132,7 +133,7 @@ class IndexController extends AbstractController
                 ],
             ]);
         });
-        $res = $agent->deregisterService('HiGrpc');
+        $res = $agent->deregisterService($id);
         return [
             'res' => $res->getBody()->getContents(),
             'status' => $res->getStatusCode(),

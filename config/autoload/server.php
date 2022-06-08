@@ -43,6 +43,7 @@ return [
             'port' => 9505,
             'sock_type' => SWOOLE_SOCK_TCP,
             'callbacks' => [
+                Event::ON_SHUTDOWN => [App\Callbacks\ShutdownCallback::class, 'onShutdown'],
                 Event::ON_REQUEST => [\Hyperf\JsonRpc\HttpServer::class, 'onRequest'],
             ],
         ],
