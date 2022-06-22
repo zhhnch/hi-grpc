@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1fc503b9a98410b0bd5f767e1992b43c",
+    "content-hash": "619d4b79852dcab80683b9cac761140c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1041,6 +1041,134 @@
                 "config",
                 "configuration",
                 "hyperf",
+                "php",
+                "swoole"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2022-05-24T13:10:54+00:00"
+        },
+        {
+            "name": "hyperf/config-center",
+            "version": "v2.2.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/config-center.git",
+                "reference": "44d9f623dafacdd42d0e25d01e5b3b80a1568cf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/config-center/zipball/44d9f623dafacdd42d0e25d01e5b3b80a1568cf3",
+                "reference": "44d9f623dafacdd42d0e25d01e5b3b80a1568cf3",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.3"
+            },
+            "suggest": {
+                "hyperf/process": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\ConfigCenter\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\ConfigCenter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The abstraction component of config center",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "config-center",
+                "hyperf",
+                "php"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2022-05-24T13:10:54+00:00"
+        },
+        {
+            "name": "hyperf/config-nacos",
+            "version": "v2.2.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/config-nacos.git",
+                "reference": "ab5d0e36964793cd8943d6b4d9e7709de8f3e6c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/config-nacos/zipball/ab5d0e36964793cd8943d6b4d9e7709de8f3e6c2",
+                "reference": "ab5d0e36964793cd8943d6b4d9e7709de8f3e6c2",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyperf/config-center": "~2.2.0",
+                "hyperf/contract": "~2.2.0",
+                "hyperf/guzzle": "~2.2.0",
+                "hyperf/nacos": "~2.2.0",
+                "hyperf/utils": "~2.2.0"
+            },
+            "suggest": {
+                "ext-json": "*",
+                "ext-simplexml": "*",
+                "ext-yaml": "*",
+                "hyperf/event": "Required to use listeners. (~2.2.0)",
+                "hyperf/framework": "Required to use listeners. (~2.2.0)",
+                "hyperf/process": "Required to use processes. (~2.2.0)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\ConfigNacos\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\ConfigNacos\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A nacos adapter for config center component.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "hyperf",
+                "nacos",
                 "php",
                 "swoole"
             ],
@@ -2525,6 +2653,62 @@
             "time": "2022-05-24T13:10:54+00:00"
         },
         {
+            "name": "hyperf/nacos",
+            "version": "v2.2.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/nacos.git",
+                "reference": "79809d2546b3f749024d518c2f840fca8157e688"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/nacos/zipball/79809d2546b3f749024d518c2f840fca8157e688",
+                "reference": "79809d2546b3f749024d518c2f840fca8157e688",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.5|^7.0",
+                "hyperf/contract": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "php": ">=7.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\Nacos\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\Nacos\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Nacos SDK",
+            "keywords": [
+                "hyperf",
+                "nacos",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/hyperf/nacos/issues",
+                "source": "https://github.com/hyperf/nacos/tree/v2.2.33"
+            },
+            "time": "2022-05-24T13:10:54+00:00"
+        },
+        {
             "name": "hyperf/pool",
             "version": "v2.2.33",
             "source": {
@@ -3073,6 +3257,68 @@
             "keywords": [
                 "consul-adapter",
                 "hyperf",
+                "php",
+                "service-governance",
+                "swoole"
+            ],
+            "support": {
+                "docs": "https://hyperf.wiki",
+                "issues": "https://github.com/hyperf/hyperf/issues",
+                "pull-request": "https://github.com/hyperf/hyperf/pulls",
+                "source": "https://github.com/hyperf/hyperf"
+            },
+            "time": "2022-05-24T13:10:54+00:00"
+        },
+        {
+            "name": "hyperf/service-governance-nacos",
+            "version": "v2.2.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hyperf/service-governance-nacos.git",
+                "reference": "daafa6b2d6634fd92468d1cd7eea38bbdcb94f07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hyperf/service-governance-nacos/zipball/daafa6b2d6634fd92468d1cd7eea38bbdcb94f07",
+                "reference": "daafa6b2d6634fd92468d1cd7eea38bbdcb94f07",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "hyperf/contract": "~2.2.0",
+                "hyperf/nacos": "~2.2.0",
+                "hyperf/service-governance": "~2.2.0",
+                "hyperf/utils": "~2.2.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                },
+                "hyperf": {
+                    "config": "Hyperf\\ServiceGovernanceNacos\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Hyperf\\ServiceGovernanceNacos\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A nacos adapter for service governance.",
+            "homepage": "https://hyperf.io",
+            "keywords": [
+                "hyperf",
+                "nacos-adapter",
                 "php",
                 "service-governance",
                 "swoole"

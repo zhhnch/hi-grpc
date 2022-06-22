@@ -17,7 +17,7 @@ use Hyperf\ServiceGovernance\ServiceManager;
 use Hyperf\Utils\ApplicationContext;
 
 /**
- * @RpcService(name="AppService", protocol="jsonrpc-http", server="jsonrpc-http", publishTo="consul")
+ * @RpcService(name="AppService", protocol="jsonrpc-http", server="jsonrpc-http")
  */
 class AppService implements AppServiceInterface
 {

@@ -50,5 +50,5 @@ fi
 
 end_time=$(date +'%s')
 
-echo $(date +'%Y-%m-%d %H:%M:%S') " docker-compose started" `expr $end_time - $start_time`"'s" && docker-compose logs -ft
+echo $(date +'%Y-%m-%d %H:%M:%S') " docker-compose started" `expr $end_time - $start_time`"'s" && docker-compose logs -ft --tail 10
 

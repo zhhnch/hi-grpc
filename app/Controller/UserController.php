@@ -21,7 +21,7 @@ use HiGrpc\UserRequest;
 
 class UserController
 {
-    public function getUser(UserRequest $request)
+    public function getUser(UserRequest $request): ?UserReply
     {
         $userId = $request->getId();
         $user = new User([
@@ -42,7 +42,7 @@ class UserController
         ]);
     }
 
-    public function getUserList(UserListRequest $request)
+    public function getUserList(UserListRequest $request): ?UserListReply
     {
         $dataList = array_map(
             fn ($u) => new User($u),

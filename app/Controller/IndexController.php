@@ -17,7 +17,9 @@ use HiGrpc\UserListRequest;
 use HiGrpc\UserReply;
 use HiGrpc\UserRequest;
 use HiGrpc\UserServiceClient;
+use Hyperf\Contract\ConfigInterface;
 use Hyperf\Consul\Agent;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\Guzzle\ClientFactory;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\Utils\ApplicationContext;
@@ -27,6 +29,11 @@ use Hyperf\Utils\ApplicationContext;
  */
 class IndexController extends AbstractController
 {
+    /**
+     * @Inject
+     */
+    protected ConfigInterface $config;
+
     public function index()
     {
         $user = $this->request->input('user', 'Hyperf');
@@ -35,6 +42,15 @@ class IndexController extends AbstractController
         return [
             'method' => $method,
             'message' => "Hello {$user}.",
+        ];
+    }
+
+    public function config()
+    {
+        $key = $this->request->input('key', '');
+        $config = $this->config->get($key, '');
+        return [
+            'config' => $config,
         ];
     }
 
