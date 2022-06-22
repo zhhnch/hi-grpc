@@ -55,3 +55,13 @@ composer require google/protobuf
 ```shell
 curl -d '{"jsonrpc": "2.0", "method": "/app/detail", "params": ["382210404157267968"], "id": 1}' http://localhost:9505
 ```
+
+## 配置中心
+
+nacos
+
+```shell
+php bin/hyperf.php vendor:publish hyperf/config-center
+
+curl http://localhost:9501/index/config?key=hi_grpc_server
+```
