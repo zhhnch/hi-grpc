@@ -57,6 +57,7 @@
         "psr-4": {
             "GPBMetadata\\": "grpc/GPBMetadata/",
             "HiGrpc\\": "grpc/HiGrpc/",
+            "Hi\\GrpcServer\\": "hi/grpc-server/",
             "Contracts\\": "contracts/",
             "App\\": "app/"
         },
