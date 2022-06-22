@@ -4,15 +4,17 @@ restart_serv(){
 
   app_id=$(docker-compose ps --services)
 
-  echo $(date +'%Y-%m-%d %H:%M:%S') "restart server:" $app_id
+  # shellcheck disable=SC2046
+  echo $(date +'%Y-%m-%d %H:%M:%S') "restart server:" "$app_id"
 
-  docker-compose exec $app_id rm -rf runtime/ \
-  && docker-compose exec $app_id composer dump-autoload \
+  docker-compose exec "$app_id" rm -rf runtime/ \
+  && docker-compose exec "$app_id" composer dump-autoload \
   && docker-compose restart
 
 }
 
 start_serv(){
+  # shellcheck disable=SC2046
   echo $(date +'%Y-%m-%d %H:%M:%S') "start server:"
 
   if [[ -d runtime/ ]]; then
@@ -24,6 +26,7 @@ start_serv(){
 
 up_serv(){
 
+  # shellcheck disable=SC2046
   echo $(date +'%Y-%m-%d %H:%M:%S') "up server:"
 
   if [[ -d runtime/ ]]; then
@@ -50,5 +53,7 @@ fi
 
 end_time=$(date +'%s')
 
-echo $(date +'%Y-%m-%d %H:%M:%S') " docker-compose started" `expr $end_time - $start_time`"'s" && docker-compose logs -ft --tail 10
+# shellcheck disable=SC2046
+# shellcheck disable=SC2003
+echo $(date +'%Y-%m-%d %H:%M:%S') " docker-compose started" $(expr "$end_time" - "$start_time")"'s" && docker-compose logs -ft --tail 10
 

@@ -5,7 +5,10 @@ services:
     image: hyperf/hyperf:8.1-alpine-v3.15-swoole
     container_name: hi-grpc
     volumes:
-      - $PWD:/opt/www
+      - target: /opt/www
+        source: hi_grpc_data
+        type: volume
+
     working_dir: /opt/www
     ports:
       - "9501:9501"
@@ -15,10 +18,18 @@ services:
       - dev-network
     cpu_count: 2
     tty: true
-    entrypoint:
-      - php
-      - bin/hyperf.php
-      - start
+    command:
+      - /bin/sh
+      - /opt/www/docker-entrypoint.sh
+
+volumes:
+  hi_grpc_data:
+    name: hi_grpc_data
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD
+      o: bind
 
 networks:
   dev-network:
