@@ -55,5 +55,5 @@ end_time=$(date +'%s')
 
 # shellcheck disable=SC2046
 # shellcheck disable=SC2003
-echo $(date +'%Y-%m-%d %H:%M:%S') " docker-compose started" $(expr "$end_time" - "$start_time")"'s" && docker-compose logs -ft --tail 10
+echo $(date +'%Y-%m-%d %H:%M:%S') " docker-compose started" $(expr "$end_time" - "$start_time")"'s" && docker-compose logs -f --tail 10
 
