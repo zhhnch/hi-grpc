@@ -1,15 +1,6 @@
 <?php
 
-declare(strict_types=1);
-/**
- * This file is part of Hyperf.
- *
- * @link     https://www.hyperf.io
- * @document https://hyperf.wiki
- * @contact  group@hyperf.io
- * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
- */
-namespace App\Controller;
+namespace App\GrpcService;
 
 use HiGrpc\Result;
 use HiGrpc\User;
@@ -18,17 +9,23 @@ use HiGrpc\UserListReply;
 use HiGrpc\UserListRequest;
 use HiGrpc\UserReply;
 use HiGrpc\UserRequest;
+use Hyperf\RpcServer\Annotation\RpcService;
 
-class UserController
+/**
+ * @RpcService(name="HiGrpc.UserService", server="grpc", protocol="grpc")
+ */
+class UserService
 {
     public function EmptyUser(\Google\Protobuf\GPBEmpty $argument): ?Result
     {
+        var_dump("=== EmptyUser ===");
         return new Result([
             'success' => true,
             'code' => '0000',
             'message' => 'success',
         ]);
     }
+
     public function getUser(UserRequest $request): ?UserReply
     {
         $userId = $request->getId();

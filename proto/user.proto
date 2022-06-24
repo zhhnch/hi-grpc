@@ -4,11 +4,15 @@ package HiGrpc;
 
 import "common.proto";
 
+import "google/protobuf/empty.proto";
+
 service UserService {
 
   rpc getUserList (UserListRequest) returns (UserListReply) {}
 
   rpc getUser (UserRequest) returns (UserReply) {}
+
+  rpc EmptyUser (google.protobuf.Empty) returns (Result) {}
 
 }
 

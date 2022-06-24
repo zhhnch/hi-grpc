@@ -12,13 +12,14 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\GrpcClient\UserClient;
+use Google\Protobuf\Internal\Message;
 use HiGrpc\UserListReply;
 use HiGrpc\UserListRequest;
 use HiGrpc\UserReply;
 use HiGrpc\UserRequest;
 use HiGrpc\UserServiceClient;
-use Hyperf\Contract\ConfigInterface;
 use Hyperf\Consul\Agent;
+use Hyperf\Contract\ConfigInterface;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Guzzle\ClientFactory;
 use Hyperf\HttpServer\Annotation\AutoController;
@@ -54,6 +55,27 @@ class IndexController extends AbstractController
         ];
     }
 
+    public function empty()
+    {
+        $client = new UserServiceClient('hi-grpc:9503', [
+            'credentials' => null,
+        ]);
+//        $client = new UserServiceClient('hi-grpc:9503', [
+//
+//        ]);
+        $request = new \Google\Protobuf\GPBEmpty();
+        /**
+         * @var UserReply $message
+         */
+        [$message, $status] = $client->EmptyUser($request);
+
+        if ($message instanceof Message) {
+            $message = json_decode($message->serializeToJsonString(), true);
+        }
+//        $result = json_decode($message->serializeToJsonString(), true);
+        return compact('status', 'message');
+    }
+
     public function user()
     {
         $client = new UserClient('hi-grpc:9503', [
@@ -76,7 +98,7 @@ class IndexController extends AbstractController
 
     public function userList()
     {
-        $client = new UserClient('192.168.31.9:9503', [
+        $client = new UserClient('hi-grpc:9503', [
             'credentials' => null,
         ]);
         $request = new UserListRequest([

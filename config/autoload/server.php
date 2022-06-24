@@ -33,7 +33,7 @@ return [
             'port' => 9503,
             'sock_type' => SWOOLE_SOCK_TCP,
             'callbacks' => [
-                Event::ON_REQUEST => [\Hi\GrpcServer\Server::class, 'onRequest'],
+                Event::ON_REQUEST => [\Hi\GrpcServer\GrpcServer::class, 'onRequest'],
 //                Event::ON_REQUEST => [\Hyperf\GrpcServer\Server::class, 'onRequest'],
             ],
         ],

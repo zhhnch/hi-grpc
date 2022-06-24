@@ -11,10 +11,10 @@ declare(strict_types=1);
  */
 namespace App\GrpcService;
 
-use Hi\GrpcServer\Annotation\GrpcService;
+use Hyperf\RpcServer\Annotation\RpcService;
 
 /**
- * @GrpcService(name="/HiGrpc.Calc", server="grpc", protocol="grpc")
+ * @RpcService(name="/HiGrpc.Calc", server="grpc", protocol="grpc")
  */
 class GrpcCalcService
 {
